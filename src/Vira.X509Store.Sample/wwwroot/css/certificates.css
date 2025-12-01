@@ -1,0 +1,27 @@
+﻿.dialog {
+    display: none;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    background: #fff;
+    border: 1px solid #888;
+    padding: 20px;
+    z-index: 1000;
+    box-shadow: 0 0 10px #888;
+}
+
+    .dialog table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .dialog th, .dialog td {
+        border: 1px solid #ccc;
+        padding: 4px 8px;
+        text-align: left;
+    }
+
+    .dialog th {
+        background: #eee;
+    }

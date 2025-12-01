@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.0.11222.15 d18.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vira.X509Store.Service", "src\Vira.X509Store.Service\Vira.X509Store.Service.csproj", "{B8EE95D5-D243-8345-6309-5AC6AF149BB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vira.X509Store.Sample", "src\Vira.X509Store.Sample\Vira.X509Store.Sample.csproj", "{6EABB934-865C-49D6-D19C-158C957ECFD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\agpl-3.0.md = ..\..\..\Downloads\agpl-3.0.md
+		LICENSE.txt = LICENSE.txt
+		NOTICE.md = NOTICE.md
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{EDBE1415-5059-44C1-A893-CA58C70C8186}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8EE95D5-D243-8345-6309-5AC6AF149BB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8EE95D5-D243-8345-6309-5AC6AF149BB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8EE95D5-D243-8345-6309-5AC6AF149BB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8EE95D5-D243-8345-6309-5AC6AF149BB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EABB934-865C-49D6-D19C-158C957ECFD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EABB934-865C-49D6-D19C-158C957ECFD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EABB934-865C-49D6-D19C-158C957ECFD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EABB934-865C-49D6-D19C-158C957ECFD1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B8EE95D5-D243-8345-6309-5AC6AF149BB8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6EABB934-865C-49D6-D19C-158C957ECFD1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D2479E8-21C5-4CAA-8B08-40CC21CF76D5}
+	EndGlobalSection
+EndGlobal

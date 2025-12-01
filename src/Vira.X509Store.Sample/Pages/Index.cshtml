@@ -1,0 +1,540 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = Html.Raw("X509Store Dastyar Sample");
+}
+<style>
+    .col-md-4 > *,
+    .col-md-5 > *,
+    .col-md-7 > *,
+    .col-md-8 > * {
+        min-width: 100%;
+        margin: .2rem 0 0 .5rem;
+    }
+    .row:not(.first-row):not(.last-row) {
+        border-bottom: 1px solid;
+        margin: .5rem 0;
+        padding-bottom: .5rem;
+    }
+    a:active,
+    a:visited {
+        text-decoration: none;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <h4><a class="d-link" href="https://github.com/vira-systems/Vira.X509Store" target="_blank" rel="nofollow noreferrer">Learn about Dastyar API</a></h4>
+</div>
+<div class="row first-row">
+    <div class="col-md-12">
+        <p>After successfully connecting, plug a hard token containing the certificate into the system.</p>
+    </div>
+    <div class="col-md-12">
+        <label class="status text-info mb-2">Status: Loading...</label>
+    </div>
+</div>
+<div class="accordion" id="accordion">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                General Functionalities
+            </button>
+        </h2>
+        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordion">
+            <div class="accordion-body">
+                <div class="row token-info">
+                    <div class="col-md-4">
+                        <button class="get-token-info btn btn-primary">Get Token Information</button>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="get-token-info-result form-control" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mechanism-infos">
+                    <div class="col-md-4">
+                        <button class="get-mechanism-infos btn btn-primary">Get Supported Mechanisms</button>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="get-mechanism-infos-result form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row store-certificate">
+                    <div class="col-md-4">
+                        <select id="store-option" class="form-select">
+                            <option value="" selected>-- Select find type (optional) --</option>
+                            <option value="0">Thumbprint (Hex string)</option>
+                            <option value="1">Subject Name (String)</option>
+                            <option value="2">Subject Distinguished Name (String)</option>
+                            <option value="3">Issuer Name (String)</option>
+                            <option value="4">Issuer Distinguished Name (String)</option>
+                            <option value="5">Serial Number (Hex string)</option>
+                            <option value="6">Time Valid (Unix Epoch)</option>
+                            <option value="7">Time Not Yet Valid (Unix Epoch)</option>
+                            <option value="8">Time Expired (Unix Epoch)</option>
+                            <option value="9">Template Name (String)</option>
+                            <option value="10">Application Policy (OID)</option>
+                            <option value="11">Certificate Policy (OID)</option>
+                            <option value="12">Extension (OID)</option>
+                            <option value="13">KeyUsage (Integer)</option>
+                            <option value="14">Subject Key Identifier (Hex string)</option>
+                        </select>
+                        <input type="text" id="store-value" class="form-control" placeholder="Value to find (optional)" />
+                        <button class="select-store-certificate btn btn-primary">Select Certificate from User Store</button>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="select-store-certificate-result form-control" placeholder="Certificate Thumbprint" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="row token-certificate">
+                    <div class="col-md-4">
+                        <select id="token-option" class="form-select">
+                            <option value="" selected>-- Select find type (optional) --</option>
+                            <option value="0">Thumbprint (Hex string)</option>
+                            <option value="1">Subject Name (String)</option>
+                            <option value="2">Subject Distinguished Name (String)</option>
+                            <option value="3">Issuer Name (String)</option>
+                            <option value="4">Issuer Distinguished Name (String)</option>
+                            <option value="5">Serial Number (Hex string)</option>
+                            <option value="6">Time Valid (Unix Epoch)</option>
+                            <option value="7">Time Not Yet Valid (Unix Epoch)</option>
+                            <option value="8">Time Expired (Unix Epoch)</option>
+                            <option value="9">Template Name (String)</option>
+                            <option value="10">Application Policy (OID)</option>
+                            <option value="11">Certificate Policy (OID)</option>
+                            <option value="12">Extension (OID)</option>
+                            <option value="13">KeyUsage (Integer)</option>
+                            <option value="14">Subject Key Identifier (Hex string)</option>
+                        </select>
+                        <input type="text" id="token-value" class="form-control" placeholder="Value to find (optional)" />
+                        <button class="select-token-certificate btn btn-primary">Select Token Certificate</button>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="select-token-certificate-result form-control" placeholder="Certificate Thumbprint" rows="1"></textarea>
+                    </div>
+                </div>
+                <div class="row token-certificate-instore last-row">
+                    <div class="col-md-4">
+                        <select id="instore-option" class="form-select">
+                            <option value="" selected>-- Select find type (optional) --</option>
+                            <option value="0">Thumbprint (Hex string)</option>
+                            <option value="1">Subject Name (String)</option>
+                            <option value="2">Subject Distinguished Name (String)</option>
+                            <option value="3">Issuer Name (String)</option>
+                            <option value="4">Issuer Distinguished Name (String)</option>
+                            <option value="5">Serial Number (Hex string)</option>
+                            <option value="6">Time Valid (Unix Epoch)</option>
+                            <option value="7">Time Not Yet Valid (Unix Epoch)</option>
+                            <option value="8">Time Expired (Unix Epoch)</option>
+                            <option value="9">Template Name (String)</option>
+                            <option value="10">Application Policy (OID)</option>
+                            <option value="11">Certificate Policy (OID)</option>
+                            <option value="12">Extension (OID)</option>
+                            <option value="13">KeyUsage (Integer)</option>
+                            <option value="14">Subject Key Identifier (Hex string)</option>
+                        </select>
+                        <input type="text" id="instore-value" class="form-control" placeholder="Value to find (optional)" />
+                        <button class="select-token-certificate-instore btn btn-primary">Select Token Certificate from User Store</button>
+                    </div>
+                    <div class="col-md-8">
+                        <textarea class="select-token-certificate-instore-result form-control" placeholder="Certificate Thumbprint" rows="1"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                PKCS#1 Functionalities
+            </button>
+        </h2>
+        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordion">
+            <div class="accordion-body">
+                <div class="row encryption">
+                    <div class="col-md-5">
+                        <input type="text" id="enc-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="enc-data" class="form-control" placeholder="Data to encrypt" required />
+                        <select id="enc-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="enc-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="enc-mode" class="form-select">
+                            <option value="" selected>-- Select encryption padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">OAEP</option>
+                        </select>
+                        <button class="encrypt btn btn-primary">Encrypt</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="encryption-result form-control" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="row decryption">
+                    <div class="col-md-5">
+                        <input type="text" id="dec-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="dec-data" class="form-control" placeholder="Data to decrypt" required />
+                        <select id="dec-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="dec-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="dec-mode" class="form-select">
+                            <option value="" selected>-- Select decryption padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">OAEP</option>
+                        </select>
+                        <button class="decrypt btn btn-primary">Decrypt</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="decryption-result form-control" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="row signing-data">
+                    <div class="col-md-5">
+                        <input type="text" id="sign-data-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="sign-data-data" class="form-control" placeholder="Data to sign" required />
+                        <select id="sign-data-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="sign-data-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="sign-data-mode" class="form-select">
+                            <option value="" selected>-- Select RSA signature padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">PSS</option>
+                        </select>
+                        <select id="sign-data-format" class="form-select">
+                            <option value="" selected>-- Select DSA signature format (optional) --</option>
+                            <option value="0">IeeeP1363 Fixed Field Concatenation</option>
+                            <option value="1">Rfc3279 Der Sequence</option>
+                        </select>
+                        <button class="sign-data btn btn-primary">Sign Data</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="sign-data-result form-control" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="row verifying-data">
+                    <div class="col-md-5">
+                        <input type="text" id="vrfy-data-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="vrfy-data-org" class="form-control" placeholder="Original data" required />
+                        <input type="text" id="vrfy-data-sig" class="form-control" placeholder="Signature to verify" required />
+                        <select id="vrfy-data-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="vrfy-data-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="vrfy-data-mode" class="form-select">
+                            <option value="" selected>-- Select RSA signature padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">PSS</option>
+                        </select>
+                        <select id="vrfy-data-format" class="form-select">
+                            <option value="" selected>-- Select DSA signature format (optional) --</option>
+                            <option value="0">IeeeP1363 Fixed Field Concatenation</option>
+                            <option value="1">Rfc3279 Der Sequence</option>
+                        </select>
+                        <button class="vrfy-data btn btn-primary">Verify Data</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="vrfy-data-result form-control" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="row signing-hash">
+                    <div class="col-md-5">
+                        <input type="text" id="sign-hash-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="sign-hash-data" class="form-control" placeholder="Hash to sign" required />
+                        <select id="sign-hash-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="sign-hash-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="sign-hash-mode" class="form-select">
+                            <option value="" selected>-- Select RSA signature padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">PSS</option>
+                        </select>
+                        <select id="sign-hash-format" class="form-select">
+                            <option value="" selected>-- Select DSA signature format (optional) --</option>
+                            <option value="0">IeeeP1363 Fixed Field Concatenation</option>
+                            <option value="1">Rfc3279 Der Sequence</option>
+                        </select>
+                        <button class="sign-hash btn btn-primary">Sign Hash</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="sign-hash-result form-control" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="row verifying-hash last-row">
+                    <div class="col-md-5">
+                        <input type="text" id="vrfy-hash-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="vrfy-hash-org" class="form-control" placeholder="Original hash" required />
+                        <input type="text" id="vrfy-hash-sig" class="form-control" placeholder="Signature to verify" required />
+                        <select id="vrfy-hash-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="vrfy-hash-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="vrfy-hash-mode" class="form-select">
+                            <option value="" selected>-- Select RSA signature padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">PSS</option>
+                        </select>
+                        <select id="vrfy-hash-format" class="form-select">
+                            <option value="" selected>-- Select DSA signature format (optional) --</option>
+                            <option value="0">IeeeP1363 Fixed Field Concatenation</option>
+                            <option value="1">Rfc3279 Der Sequence</option>
+                        </select>
+                        <button class="vrfy-hash btn btn-primary">Verify Hash</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="vrfy-hash-result form-control" rows="8"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                PKCS#7 Functionalities
+            </button>
+        </h2>
+        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordion">
+            <div class="accordion-body">
+                <div class="row cms-encryption">
+                    <div class="col-md-5">
+                        <input type="text" id="cms-enc-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="cms-enc-data" class="form-control" placeholder="Data to encrypt" required />
+                        <select id="cms-enc-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <select id="cms-hash-alg" class="form-select">
+                            <option value="" selected>-- Select hash algorithm (optional) --</option>
+                            <option value="1">SHA1</option>
+                            <option value="3">SHA256</option>
+                            <option value="4">SHA384</option>
+                            <option value="5">SHA512</option>
+                        </select>
+                        <select id="cms-enc-mode" class="form-select">
+                            <option value="" selected>-- Select encryption padding mode (optional) --</option>
+                            <option value="0">PKCS1</option>
+                            <option value="1">OAEP</option>
+                        </select>
+                        <select id="cms-enc-alg" class="form-select">
+                            <option value="" selected>-- Select encryption algorithm (optional) --</option>
+                            <option value="0">RC2</option>
+                            <option value="1">RC4</option>
+                            <option value="3">TripleDES</option>
+                            <option value="4">DES</option>
+                            <option value="5">AES128</option>
+                            <option value="6">AES192</option>
+                            <option value="7">AES256</option>
+                        </select>
+                        <button class="cms-encrypt btn btn-primary">CMS Encrypt</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="cms-encryption-result form-control" rows="8"></textarea>
+                    </div>
+                </div>
+                <div class="row cms-decryption">
+                    <div class="col-md-5">
+                        <input type="text" id="cms-dec-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="cms-dec-data" class="form-control" placeholder="Data to decrypt" required />
+                        <select id="cms-dec-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <button class="cms-decrypt btn btn-primary">CMS Decrypt</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="cms-decryption-result form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="row cms-signing">
+                    <div class="col-md-5">
+                        <input type="text" id="cms-sign-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="cms-sign-data" class="form-control" placeholder="Data to sing" required />
+                        <label>
+                            <input type="checkbox" id="cms-sign-detached" class="form-check-input" />
+                            Detached
+                        </label>
+                        <select id="cms-sign-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <button class="cms-sign btn btn-primary">CMS Sign</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="cms-signing-result form-control" rows="6"></textarea>
+                    </div>
+                </div>
+                <div class="row cms-verifying last-row">
+                    <div class="col-md-5">
+                        <input type="text" id="cms-vrfy-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <input type="text" id="cms-signed-data" class="form-control" placeholder="Signed data" required />
+                        <input type="text" id="cms-original-data" class="form-control" placeholder="Original data (If signed detached, it's required.)" />
+                        <label>
+                            <input type="checkbox" id="cms-validate-cert" class="form-check-input" checked />
+                            Validate Certificate
+                        </label>
+                        <select id="cms-vrfy-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <button class="cms-verify btn btn-primary">CMS Verify</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="cms-verifying-result form-control" rows="7"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="flush-headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour">
+                X.509 Certificate Functionalities
+            </button>
+        </h2>
+        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingFour" data-bs-parent="#accordion">
+            <div class="accordion-body">
+                <div class="row csr">
+                    <div class="col-md-5">
+                        <fieldset>
+                            <legend>Key Info</legend>
+                            <select id="signature-alg" class="form-select" required>
+                                <option value="" selected>-- Select Signature Algorithm --</option>
+                                <option value="1">SHA1WithRSA</option>
+                                <option value="2">SHA256WithRSA</option>
+                                <option value="3">SHA384WithRSA</option>
+                                <option value="4">SHA512WithRSA</option>
+                                <option value="5">SHA1WithECDSA</option>
+                                <option value="6">SHA224WithECDSA</option>
+                                <option value="7">SHA256WithECDSA</option>
+                                <option value="8">SHA384WithECDSA</option>
+                                <option value="9">SHA512WithECDSA</option>
+                            </select>
+                            <input type="number" id="key-size" class="form-control" placeholder="RSA Key Size" />
+                            <select id="elliptic-curve" class="form-select">
+                                <option value="" selected>-- Select ECDsa Elliptice Curve --</option>
+                                <option value="1">brainpoolP160r1</option>
+                                <option value="2">brainpoolP160t1</option>
+                                <option value="3">brainpoolP192r1</option>
+                                <option value="4">brainpoolP192t1</option>
+                                <option value="5">brainpoolP224r1</option>
+                                <option value="6">brainpoolP224t1</option>
+                                <option value="7">brainpoolP256r1</option>
+                                <option value="8">brainpoolP256t1</option>
+                                <option value="9">brainpoolP320r1</option>
+                                <option value="10">brainpoolP320t1</option>
+                                <option value="11">brainpoolP384r1</option>
+                                <option value="12">brainpoolP384t1</option>
+                                <option value="13">brainpoolP512r1</option>
+                                <option value="14">brainpoolP512t1</option>
+                                <option value="256">nistP256</option>
+                                <option value="384">nistP384</option>
+                                <option value="521">nistP521</option>
+                            </select>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Subject Distinguished Name</legend>
+                            <input type="text" id="subject-dn" class="form-control" placeholder="Subject DN" required />
+                        </fieldset>
+                        <fieldset>
+                            <legend>Subject Alternative Names (optional)</legend>
+                            <input type="text" id="dns" class="form-control" placeholder="DNS" />
+                            <input type="text" id="ip" class="form-control" placeholder="IP Address" />
+                            <input type="text" id="rfc822" class="form-control" placeholder="Rfc822 email" />
+                            <input type="text" id="upn" class="form-control" placeholder="UPN" />
+                            <input type="text" id="uri" class="form-control" placeholder="URI" />
+                        </fieldset>
+                        <button class="csr-gen-der btn btn-primary">Generate PKCS#10 CSR (DER-encoded)</button>
+                        <button class="csr-gen-pem btn btn-primary">Generate PKCS#10 CSR (PEM-encoded)</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="csr-result form-control" rows="21"></textarea>
+                        <button class="csr-export btn btn-primary" disabled>Export PKCS#10 CSR</button>
+                    </div>
+                </div>
+                <div class="row import">
+                    <div class="col-md-5">
+                        <input type="text" id="import-ckaId" class="form-control" placeholder="Certificate ID (Cka Id)" required />
+                        <input type="text" id="import-label" class="form-control" placeholder="Certificate label" required />
+                        <input type="text" id="import-certificate" class="form-control" placeholder="DER-encoded certificate data" required />
+                        <button class="import-cert btn btn-primary">Import Certificate</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="import-result form-control" rows="7"></textarea>
+                    </div>
+                </div>
+                <div class="row export last-row">
+                    <div class="col-md-5">
+                        <input type="text" id="export-cert" class="form-control" placeholder="Selected Certificate Thumbprint" required />
+                        <select id="export-store" class="form-select" required>
+                            <option value="" selected>-- Select certificate Store --</option>
+                            <option value="0">USB Token</option>
+                            <option value="1">User Store</option>
+                        </select>
+                        <button class="export-cert btn btn-primary">Export Certificate</button>
+                    </div>
+                    <div class="col-md-7">
+                        <textarea class="export-result form-control" rows="7"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/sample.js" type="module"></script>
+}
