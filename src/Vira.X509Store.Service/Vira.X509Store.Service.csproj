@@ -10,9 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\FolderProfile.Linux.x64.Multi.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile.Linux.x64.Sigle.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.OSX.x64.Multi.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile.OSX.x64.Single.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.Portable.pubxml" />
+    <None Remove="Properties\PublishProfiles\FolderProfile.Windows.x64.Multi.pubxml" />
     <None Remove="Properties\PublishProfiles\FolderProfile.Windows.x64.Single.pubxml" />
+    <None Remove="Properties\PublishProfiles\registry.hub.docker.com.pubxml" />
   </ItemGroup>
 
   <ItemGroup>
