@@ -48,7 +48,7 @@ I would like to express my special thanks to the contributors of both projects. 
 X509Store.Service is fully documented with the inline XML documentation that is displayed by the most of the modern IDEs during the application development.
 
 You can find sample code of using features in the following:
-* [X509Store.Service sample](doc/CODE_SAMPLE.md)
+* [X509Store.Service sample](src/Vira.X509Store.Sample)
 
 ## License
 
