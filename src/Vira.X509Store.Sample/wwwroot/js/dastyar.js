@@ -1483,7 +1483,6 @@ export let Dastyar = window.Dastyar = (() => {
             try {
                 _showSpinner();
                 _registerCallback(callback, 'csr');
-                debugger;
                 await _connection.invoke('GenerateCSR', certificateRequest);
             } catch (err) {
                 _hideSpinner();
